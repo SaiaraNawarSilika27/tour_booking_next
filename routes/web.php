@@ -1,0 +1,53 @@
+<?php
+
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\WishlistController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\AuthController as CustomerAuthController;
+
+// Public Routes
+Route::get('/', [PackageController::class, 'index'])->name('home');
+Route::get('/packages/{id}', [PackageController::class, 'show'])->name('packages.show');
+
+// Customer Authentication Routes
+Route::prefix('customer')->group(function () {
+    Route::get('/login', [CustomerAuthController::class, 'showCustomerLoginForm'])->name('customer.login');
+    Route::post('/login', [CustomerAuthController::class, 'customerLogin']);
+    Route::get('/register', [CustomerAuthController::class, 'showCustomerRegisterForm'])->name('customer.register');
+    Route::post('/register', [CustomerAuthController::class, 'customerRegister']);
+    Route::post('/logout', [CustomerAuthController::class, 'customerLogout'])->name('customer.logout');
+});
+
+// Customer Booking Routes (Protected)
+Route::middleware('auth')->group(function () {
+    Route::get('/packages/{id}/book', [BookingController::class, 'create'])->name('packages.book');
+    Route::post('/packages/{id}/book', [BookingController::class, 'store'])->name('packages.book.submit');
+});
+
+// Admin Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('admin.register');
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+        Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
+    Route::post('/packages', [PackageController::class, 'store'])->name('packages.store');
+        Route::get('/packages/{id}/edit', [PackageController::class, 'edit'])->name('packages.edit');
+        Route::put('/packages/{id}', [PackageController::class, 'update'])->name('packages.update');
+        Route::delete('/packages/{id}', [PackageController::class, 'destroy'])->name('packages.destroy');
+        Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
+    });
+});
+// Wishlist routes
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');
+    Route::post('/wishlist/{package}', [WishlistController::class, 'add'])->name('wishlist.add');
+    Route::delete('/wishlist/{package}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+});
