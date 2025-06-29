@@ -3,5 +3,5 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 class Package extends Model {
-    protected $fillable = ['name', 'description', 'price', 'image'];
+    protected $fillable = ['name', 'description', 'price','Duration', 'image'];
 }

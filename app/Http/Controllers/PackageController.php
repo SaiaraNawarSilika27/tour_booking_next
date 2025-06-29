@@ -31,10 +31,11 @@ class PackageController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'Duration' => 'required|string',
             'image' => 'nullable|image|max:2048', // Validate image file, max 2MB
         ]);
 
-        $data = $request->only(['name', 'description', 'price']);
+        $data = $request->only(['name', 'description', 'price', 'Duration']);
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('packages', 'public');
             $data['image'] = $imagePath;
@@ -59,10 +60,11 @@ class PackageController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
+            'Duration' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
-        $data = $request->only(['name', 'description', 'price']);
+        $data = $request->only(['name', 'description', 'price', 'Duration']);
         if ($request->hasFile('image')) {
             // Delete old image if exists
             if ($package->image) {

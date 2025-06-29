@@ -59,6 +59,13 @@
                     @endif
                 </div>
                 <div>
+                    <label class="block text-sm font-medium text-black">Duration</label>
+                    <input type="text" name="Duration" class="input input-bordered text-white w-full @error('Duration') input-error @enderror" value="{{ old('name') }}" required>
+                    @error('Duration')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @endif
+                </div>
+                <div>
                     <label class="block text-sm font-medium text-black">Image</label>
                     <input type="file" name="image" class="file-input file-input-bordered text-white w-full @error('image') file-input-error @enderror" id="imageInput" accept="image/*">
                     @error('image')
@@ -94,6 +101,7 @@
                         </figure>
                             <h2 class="card-title text-base text-white">Title: {{ $package->name }}</h2>
                             <p class="text-sm text-white">Price: ${{ $package->price }}</p>
+                            <p class="text-sm text-white">Duration: {{ $package->Duration }}</p>
                             <div class="card-actions justify-end gap-2">
                                 <a href="{{ route('packages.edit', $package->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('packages.destroy', $package->id) }}" method="POST" class="inline">

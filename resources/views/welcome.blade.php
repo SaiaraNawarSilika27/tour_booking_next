@@ -67,12 +67,13 @@
                             @endif
                         </figure>
                         <div class="card-body p-4">
-                            <h2 class="card-title text-base text-gray-900">Title: {{ $package->name }}</h2>
-                            <p class="text-sm text-gray-600">Price: ${{ $package->price }}</p>
-                            <p class="text-sm text-gray-600">Description: {{ Str::limit($package->description, 100) }}</p>
-                            <div class="card-actions justify-end">
+                            <h2 class="card-title text-base text-white">Title: {{ $package->name }}</h2>
+                            <p class="text-sm text-white">Price: ${{ $package->price }}</p>
+                            <p class="text-sm text-white">Duration: {{ $package->Duration ?? 'N/A' }}</p>
+                            <p class="text-sm text-white">Description: {{ Str::limit($package->description, 100) }}</p>
+                        <!-- <div class="card-actions justify-end">
                                 <a href="{{ route('packages.show', $package->id) }}" class="btn btn-sm btn-primary">View & Book</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 @endforeach
