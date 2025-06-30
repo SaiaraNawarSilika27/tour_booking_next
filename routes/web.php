@@ -19,6 +19,8 @@ Route::prefix('customer')->group(function () {
     Route::get('/register', [CustomerAuthController::class, 'showCustomerRegisterForm'])->name('customer.register');
     Route::post('/register', [CustomerAuthController::class, 'customerRegister']);
     Route::post('/logout', [CustomerAuthController::class, 'customerLogout'])->name('customer.logout');
+    //vul testing
+    Route::get('/histry', [CustomerAuthController::class, 'histry'])->name('customer.history');
 });
 
 // Customer Booking Routes (Protected)
@@ -43,11 +45,10 @@ Route::prefix('admin')->group(function () {
         Route::put('/packages/{id}', [PackageController::class, 'update'])->name('packages.update');
         Route::delete('/packages/{id}', [PackageController::class, 'destroy'])->name('packages.destroy');
         
-Route::get('/packages/{id}/view', [PackageController::class, 'view'])->name('packages.view');
-
         Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
     });
 });
+Route::get('/packages/{id}/view', [PackageController::class, 'view'])->name('packages.view');
 // Wishlist routes
 Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist');

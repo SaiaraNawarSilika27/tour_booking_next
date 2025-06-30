@@ -29,6 +29,7 @@
                 </svg>
             </a>
             @auth
+             <a href="{{ route('customer.history') }}" class="btn btn-sm btn-primary mr-2">View Buying History</a>
                 <form action="{{ route('customer.logout') }}" method="POST" class="mr-4">
                     @csrf
                     <button type="submit" class="btn btn-sm btn-error">Logout</button>
@@ -50,16 +51,16 @@
     <h1 class="text-center text-2xl font-bold p-6">Tour Packages</h1>
 
     <!-- Cards Section -->
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto p-4 ">
         @if ($packages->isEmpty())
             <p class="text-center text-gray-600">No packages available.</p>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
                 @foreach ($packages as $package)
                    <a href="{{ route('packages.view', $package->id) }}">
-                        <figure class="relative w-full h-80">
+                        <figure class="relative w-64 h-80 ">
                             @if ($package->image)
-                                <img src="{{ asset('storage/' . $package->image) }}" alt="{{ $package->name }}" class="w-full h-full object-cover" />
+                                <img src="{{ asset('storage/' . $package->image) }}" alt="{{ $package->name }}" class="w-full h-full object-cover rounded-xl shadow-2xl" />
                             @else
                                 <img src="https://via.placeholder.com/150" alt="Placeholder" class="w-full h-full object-cover" />
                             @endif
