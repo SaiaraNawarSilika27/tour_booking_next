@@ -42,9 +42,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/packages/{id}/edit', [PackageController::class, 'edit'])->name('packages.edit');
         Route::put('/packages/{id}', [PackageController::class, 'update'])->name('packages.update');
         Route::delete('/packages/{id}', [PackageController::class, 'destroy'])->name('packages.destroy');
-        
-Route::get('/packages/{id}/view', [PackageController::class, 'view'])->name('packages.view');
-
         Route::get('/bookings', [BookingController::class, 'index'])->name('admin.bookings.index');
     });
 });

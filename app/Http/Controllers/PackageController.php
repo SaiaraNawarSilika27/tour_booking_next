@@ -89,4 +89,11 @@ class PackageController extends Controller
 
         return redirect()->route('admin.dashboard')->with('success', 'Package deleted successfully!');
     }
+    // Display a single package preview (for view.blade.php)
+    public function view($id)
+    {
+        $package = Package::findOrFail($id);
+        return view('packages.view', compact('package'));
+    }
+    
 }
