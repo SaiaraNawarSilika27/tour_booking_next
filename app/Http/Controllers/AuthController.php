@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +54,13 @@ class AuthController extends Controller
    return redirect()->intended();
 }
  public function histry()
- {
-    return view('histry');
- }
+    {
+        // Get the authenticated user's bookings with their associated packages
+        $bookings = Booking::where('user_id', Auth::id())
+                          ->with('package')
+                          ->get();
+
+        // Pass bookings to the history view
+        return view('customer.history', compact('bookings'));
+    }
 }

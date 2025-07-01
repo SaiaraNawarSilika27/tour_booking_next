@@ -1,12 +1,18 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
-class Booking extends Model {
-    protected $fillable = ['package_id','user_id', 'user_name', 'email', 'phone', 'booking_date', 'persons', 'total_price'];
-    public function package() {
+
+class Review extends Model
+{
+    protected $fillable = ['package_id', 'user_id', 'review'];
+
+    public function package()
+    {
         return $this->belongsTo(Package::class);
     }
+
     public function user()
     {
         return $this->belongsTo(User::class);

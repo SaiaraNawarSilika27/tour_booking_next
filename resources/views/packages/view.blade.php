@@ -48,9 +48,26 @@
             </div>
         </div>
 
+        <!-- Reviews Section -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold text-purple-700 mb-4">Customer Reviews</h2>
+            @if ($package->reviews->isEmpty())
+                <p class="text-gray-600">No reviews yet for this package.</p>
+            @else
+                <div class="space-y-4">
+                    @foreach ($package->reviews as $review)
+                        <div class="card bg-white shadow-md p-4 rounded-lg">
+                            <p class="text-gray-700">{{ $review->review }}</p>
+                            <p class="text-sm text-gray-500 mt-2">Posted by {{ $review->user->name }} on {{ $review->created_at->format('F j, Y') }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+
         <!-- Footer -->
         <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-8 rounded">
-            <p class="text-sm text-gray-500">Current Date & Time: {{ date('l, F j, Y, g:i A T') }} ({{ date('e') }})</p>
+            <p class="text-sm text-gray-500">Current Date & Time: {{ date('l, F j, Y, g:i A T') }} ({{ date_default_timezone_get() }})</p>
         </footer>
     </div>
 </body>

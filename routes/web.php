@@ -4,6 +4,7 @@ use App\Http\Controllers\PackageController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\AuthController as CustomerAuthController;
@@ -55,3 +56,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/wishlist/{package}', [WishlistController::class, 'add'])->name('wishlist.add');
     Route::delete('/wishlist/{package}', [WishlistController::class, 'remove'])->name('wishlist.remove');
 });
+
+Route::post('reviews/store/{package}', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+Route::get('packages/view/{package}', [PackageController::class, 'view'])->name('packages.view');
